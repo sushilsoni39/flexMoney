@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "008dddd1-072c-4b58-9158-7ef078ca9efb",
+		"name": "VoucherApplication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/actuator/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadTransaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": [
+								"/C:/Users/sushi/Downloads/voucher.csv",
+								"/C:/Users/sushi/Downloads/transaction.csv"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/voucher_allocation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"voucher_allocation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

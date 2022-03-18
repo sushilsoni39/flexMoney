@@ -1,0 +1,48 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// web
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.6.4'
+
+
+	//CSV
+	implementation 'com.opencsv:opencsv:5.0'
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.13.2'
+
+
+	//AutoConfigure
+	implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.6.4'
+
+
+	//// Health-Check
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.6.4'
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+bootJar {
+	manifest {
+		attributes 'Start-Class': 'com.example.voucher.VoucherApplication'
+	}
+}
