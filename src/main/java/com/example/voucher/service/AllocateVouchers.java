@@ -27,6 +27,8 @@ public class AllocateVouchers {
 
         for (TransactionsEntity transactionsEntity : transactionsEntityDAOList) {
             int transAmount = Integer.parseInt(transactionsEntity.getAmount());
+
+            //when transaction amount matches voucher value
             if (voucherEntities.containsKey(transAmount)) {
                 List<VoucherEntity> voucherEntityList1 = voucherEntities.get(transAmount);
                 VoucherEntity voucher = voucherEntityList1.get(0);
@@ -41,10 +43,12 @@ public class AllocateVouchers {
                 if (voucherEntities.get(transAmount).size() == 0) voucherEntities.remove(transAmount);
             }
 
+            //when transaction amount does not matches any voucher values
             else
             {
-                //Todo
                 int len = amountList.size();
+
+                // consume until the net transaction amount is greater the minimum valued voucher
                 while(transAmount>=amountList.get(0) && len>0)
                 {
                     if(transAmount>=amountList.get(len-1) && voucherEntities.containsKey(amountList.get(len-1)))
@@ -75,6 +79,7 @@ public class AllocateVouchers {
     }
 
 
+    // compare present date with expiry date of vouchers
     private static boolean compareDate(String present, String expiry) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String[] expiryDate = expiry.split("-");
@@ -94,6 +99,7 @@ public class AllocateVouchers {
         return false;
     }
 
+    // filtering out only valid vouchers by removing the expired ones
     private static List<VoucherEntity> getVoucherAfterRemovingExpired(List<VoucherEntity> voucherEntityList) throws ParseException {
 
         List<VoucherEntity> voucherEntitiesAfterRemovingExpiredVouchers = new ArrayList<>();
@@ -112,6 +118,8 @@ public class AllocateVouchers {
         return voucherEntitiesAfterRemovingExpiredVouchers;
     }
 
+
+    // storing vouchers in a map (basically grouping the vouchers with same value)
     private static HashMap<Integer, List<VoucherEntity>> getMappedVouchersWithAmount(List<VoucherEntity> voucherEntitiesAfterRemovingExpired) {
         HashMap<Integer, List<VoucherEntity>> voucherMap = new HashMap<>();
         for (int i = 0; i < voucherEntitiesAfterRemovingExpired.size(); i++) {
