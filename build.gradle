@@ -41,8 +41,10 @@ tasks.named('test') {
 }
 
 
-bootJar {
+jar {
+	enabled = false
 	manifest {
-		attributes 'Start-Class': 'com.example.voucher.VoucherApplication'
+		attributes 'Main-Class': 'com.example.voucher.VoucherApplication.Class'
 	}
 }
+
